@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/heri2610/final-prakerja/models"
@@ -15,11 +16,12 @@ func InitDB() {
 	var err error
 	DB, err = gorm.Open(mysql.Open(dns), &gorm.Config{})
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
-	Migration()
+	// Migration()
 }
 
 func Migration() {
 	DB.AutoMigrate(&models.User{})
+	DB.AutoMigrate(&models.SosialMedia{})
 }

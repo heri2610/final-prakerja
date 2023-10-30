@@ -6,11 +6,11 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func AddUsersController(c echo.Context) error {
-	var user models.User
-	c.Bind(&user)
+func AddSosialMediaController(c echo.Context) error {
+	var sosialMedia models.SosialMedia
+	c.Bind(&sosialMedia)
 
-	err := config.DB.Create(&user).Error
+	err := config.DB.Create(&sosialMedia).Error
 	if err != nil {
 		return c.JSON(500, models.BaseResponse{
 			Status:  false,
@@ -22,19 +22,19 @@ func AddUsersController(c echo.Context) error {
 	return c.JSON(200, models.BaseResponse{
 		Status:  true,
 		Message: "Successfully created",
-		Data:    user,
+		Data:    sosialMedia,
 	})
 }
 
-func GetDetailUsersController(c echo.Context) error {
+func GetDetailSosialMediaController(c echo.Context) error {
 	// id := c.Param("id")
-	var user models.User = models.User{}
-	return c.JSON(200, user)
+	var sosialMedia models.SosialMedia = models.SosialMedia{}
+	return c.JSON(200, sosialMedia)
 }
 
-func GetUsersController(c echo.Context) error {
-	var users []models.User
-	err := config.DB.Preload("SosialMedia").Find(&users).Error
+func GetSosialMediaController(c echo.Context) error {
+	var sosialMedia []models.SosialMedia
+	err := config.DB.Find(&sosialMedia).Error
 	if err != nil {
 		return c.JSON(500, models.BaseResponse{
 			Status:  false,
@@ -45,6 +45,6 @@ func GetUsersController(c echo.Context) error {
 	return c.JSON(200, models.BaseResponse{
 		Status:  true,
 		Message: "Successfully get data",
-		Data:    users,
+		Data:    sosialMedia,
 	})
 }
